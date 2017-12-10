@@ -18,10 +18,10 @@ int main() {
     glGenBuffers(1, &vbo);
 
     float points[] = {
-            -0.45f, 0.45f,
-            0.45f, 0.45f,
-            0.45f, -0.45f,
-            -0.45f, -0.45f,
+            -0.45f,  0.45f, 1.0f, 0.0f, 0.0f, // Red point
+            0.45f,  0.45f, 0.0f, 1.0f, 0.0f, // Green point
+            0.45f, -0.45f, 0.0f, 0.0f, 1.0f, // Blue point
+            -0.45f, -0.45f, 1.0f, 1.0f, 0.0f, // Yellow point
     };
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -45,7 +45,12 @@ int main() {
     //个人理解为是将渲染关系进行绑定
     GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
     glEnableVertexAttribArray(posAttrib);
-    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
+
+    GLint colAttrib = glGetAttribLocation(shaderProgram, "color");
+    glEnableVertexAttribArray(colAttrib);
+    glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE,
+                          5 * sizeof(float), (void*) (2 * sizeof(float)));
 
     //TODO: 循环体里面写循环渲染的代码
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0) {
