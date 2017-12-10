@@ -5,12 +5,15 @@ using namespace std;
 using namespace glm;
 
 int main() {
-    if(!initGL())return -1;
+    if (initGL() != SUCCEED)return -1;
+
+    // todo list as follow:
+
+    // Variables:
 
     GLuint vao;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
-    // Variables:
     GLuint vbo;
     glGenBuffers(1, &vbo);
 
@@ -37,21 +40,17 @@ int main() {
     //link and use
     glLinkProgram(shaderProgram);
     glUseProgram(shaderProgram);
-    //----------------
-
-
 
     // Specify layout of point data
+    //个人理解为是将渲染关系进行绑定
     GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
     glEnableVertexAttribArray(posAttrib);
     glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
-
     //TODO: 循环体里面写循环渲染的代码
-    while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
-           glfwWindowShouldClose(window) == 0) {
+    while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0) {
         // Clear the screen
-        //TODO: 循环渲染的
+        //TODO: 循环渲染
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         // Render frame

@@ -6,6 +6,7 @@
 #define OPENGL_PROJECT_PREPARE_H
 
 #include <project_reference.h>
+#define SUCCEED 0
 using namespace std;
 static GLFWwindow *window;
 static string fvckString;
