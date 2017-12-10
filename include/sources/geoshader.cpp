@@ -2,59 +2,6 @@
 using namespace std;
 using namespace glm;
 
-#define Float GLfloat
-
-// Vertex shader
-const GLchar* vertexShaderSrc = R"glsl(
-    #version 150 core
-
-    in vec2 pos;
-
-    void main()
-    {
-        gl_Position = vec4(pos, 0.0, 1.0);
-    }
-)glsl";
-
-// Geometry shader
-const GLchar* geometryShaderSrc = R"glsl(
-    #version 150 core
-
-    layout(points) in;
-    layout(triangle_strip, max_vertices = 5) out;
-
-    void main()
-    {
-        gl_Position = gl_in[0].gl_Position + vec4(-0.1, 0.1, 0.0, 0.0);
-        EmitVertex();
-
-        gl_Position = gl_in[0].gl_Position + vec4(0.1, 0.1, 0.0, 0.0);
-        EmitVertex();
-
-        gl_Position = gl_in[0].gl_Position + vec4(0.1, -0.1, 0.0, 0.0);
-        EmitVertex();
-
-        gl_Position = gl_in[0].gl_Position + vec4(-0.1, -0.1, 0.0, 0.0);
-        EmitVertex();
-
-        gl_Position = gl_in[0].gl_Position + vec4(-0.1, 0.1, 0.0, 0.0);
-        EmitVertex();
-
-        EndPrimitive();
-    }
-)glsl";
-
-// Fragment shader
-const GLchar* fragmentShaderSrc = R"glsl(
-    #version 150 core
-
-    out vec4 outColor;
-    void main()
-    {
-        outColor = vec4(1.0, 0.0, 0.0, 1.0);
-    }
-)glsl";
-
 // Shader creation helper
 GLuint createShader(GLenum type, const GLchar* src) {
     GLuint shader = glCreateShader(type);
@@ -62,6 +9,7 @@ GLuint createShader(GLenum type, const GLchar* src) {
     glCompileShader(shader);
     return shader;
 }
+
 string fvckString;
 const GLchar* readText(const char *path){
     std::string shaderCode;
@@ -80,6 +28,7 @@ const GLchar* readText(const char *path){
     fvckString+=shaderCode;
     return fvckString.c_str();
 }
+
 int main() {
     if (!glfwInit()) {
         fprintf(stderr, "Failed to initialize GLFW\n");
@@ -118,6 +67,7 @@ int main() {
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
 
+    //load glsl files
     GLuint vertexShader = createShader(GL_VERTEX_SHADER, readText("shader/shader_vertex.glsl"));
     GLuint geometryShader = createShader(GL_GEOMETRY_SHADER, readText("shader/shader_geom.glsl"));
     GLuint fragmentShader = createShader(GL_FRAGMENT_SHADER, readText("shader/shader_fragment.glsl"));
@@ -126,16 +76,17 @@ int main() {
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, geometryShader);
     glAttachShader(shaderProgram, fragmentShader);
+    //link and use
     glLinkProgram(shaderProgram);
     glUseProgram(shaderProgram);
 
     GLuint vbo;
     glGenBuffers(1, &vbo);
     GLfloat points[] = {
-            -0.45f,  0.45f,
-            0.45f,  0.45f,
-            0.45f, -0.45f,
-            -0.45f, -0.45f,
+            -0.7f,  0.7f,
+            0.7f,  0.7f,
+            0.7f, -0.7f,
+            -0.7f, -0.7f,
     };
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -150,18 +101,15 @@ int main() {
     GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
     glEnableVertexAttribArray(posAttrib);
     glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    bool running = true;
 
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
                     glfwWindowShouldClose(window) == 0) {
         // Clear the screen
-        glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         // Render frame
         glDrawArrays(GL_POINTS, 0, 4);
         // Use our shader
-        glDisableVertexAttribArray(0);
         // Swap buffers
         glfwSwapBuffers(window);
         glfwPollEvents();
