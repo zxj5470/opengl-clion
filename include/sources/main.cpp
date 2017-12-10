@@ -1,5 +1,5 @@
-#include "project_reference.h"
-#include "LoadShader.hpp"
+#include "../headers/project_reference.h"
+#include "../headers/LoadShader.hpp"
 using namespace std;
 using namespace glm;
 
