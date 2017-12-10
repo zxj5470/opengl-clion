@@ -1,21 +1,27 @@
 #version 150 core
 
 layout(points) in;
-layout(line_strip, max_vertices = 2) out;
+layout(line_strip, max_vertices = 50) out;
 
-in vec3 vColor[]; // Output from vertex shader for each vertex
+in vec3 vColor[];
+out vec3 fColor;
 
-out vec3 fColor; // Output to fragment shader
+const float PI = 3.1415926;
 
 void main()
 {
-    fColor = vColor[0]; // Point has only one vertex
+    fColor = vColor[0];
 
-    gl_Position = gl_in[0].gl_Position + vec4(-0.1, 0.1, 0.0, 0.0);
-    EmitVertex();
+    for (int i = 0; i <= 49; i++) {
+        // Angle between each side in radians
+        float ang = PI * 2.0 / 49.0 * i;
 
-    gl_Position = gl_in[0].gl_Position + vec4(0.1, 0.1, 0.0, 0.0);
-    EmitVertex();
+        // Offset from center of point (0.3 to accomodate for aspect ratio)
+        vec4 offset = vec4(cos(ang) * 0.3, -sin(ang) * 0.4, 0.0, 0.0);
+        gl_Position = gl_in[0].gl_Position + offset;
+
+        EmitVertex();
+    }
 
     EndPrimitive();
 }
