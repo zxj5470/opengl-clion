@@ -7,27 +7,26 @@ include_directories(include/headers)
 
 add_executable(opengl
         include/sources/main.cpp
-        include/headers/project_reference.h
-        include/headers/LoadShader.hpp)
+        include/headers/project_reference.hpp
+        include/headers/load_shader.hpp)
 
 add_executable(geoshader
-        include/sources/geoshader.cpp
-        include/headers/project_reference.h
-        include/headers/LoadShader.hpp)
+        include/sources/geo_shader.cpp
+        include/headers/project_reference.hpp
+        include/headers/load_shader.hpp)
 
 add_executable(simple_shader
-        include/sources/simpleshader.cpp
-        include/headers/project_reference.h
-        include/headers/LoadShader.hpp)
+        include/sources/simple_shader.cpp
+        include/headers/project_reference.hpp
+        include/headers/load_shader.hpp)
 
-
-IF (WIN32)
-ELSEIF (APPLE)
+if (WIN32)
+elseif (APPLE)
     find_package(OpenGL REQUIRED)
     target_link_libraries(opengl glfw GLEW ${OPENGL_LIBRARY})
     target_link_libraries(geoshader glfw GLEW ${OPENGL_LIBRARY})
     target_link_libraries(simple_shader glfw GLEW ${OPENGL_LIBRARY})
-ELSEIF (UNIX)
+elseif (UNIX)
     target_link_libraries(opengl libglfw.so.3 GLEW GL)
     target_link_libraries(geoshader libglfw.so.3 GLEW GL)
-ENDIF ()
+endif ()

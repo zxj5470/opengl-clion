@@ -5,7 +5,7 @@
 #ifndef OPENGL_LOADSHADER_H
 #define OPENGL_LOADSHADER_H
 
-#include "project_reference.h"
+#include "project_reference.hpp"
 
 static GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path){
 

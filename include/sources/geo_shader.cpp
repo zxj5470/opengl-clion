@@ -1,4 +1,4 @@
-#include "../headers/project_reference.h"
+#include "project_reference.hpp"
 using namespace std;
 using namespace glm;
 

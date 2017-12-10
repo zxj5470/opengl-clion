@@ -1,5 +1,5 @@
-#include <project_reference.h>
-#include <project_preparation.h>
+#include <project_reference.hpp>
+#include <project_preparation.hpp>
 
 using namespace std;
 using namespace glm;
