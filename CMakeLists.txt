@@ -3,6 +3,8 @@ project(opengl)
 
 set(CMAKE_CXX_STANDARD 11)
 
+include_directories(include/headers)
+
 add_executable(opengl
         include/sources/main.cpp
         include/headers/project_reference.h
