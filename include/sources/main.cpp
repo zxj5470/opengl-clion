@@ -3,13 +3,6 @@
 using namespace std;
 using namespace glm;
 
-#define Float GLfloat
-
-static const Float g_vertex_buffer_data[] = {
-        1.0f, -1.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-};
-
 int main() {
     if (!glfwInit()) {
         fprintf(stderr, "Failed to initialize GLFW\n");
@@ -55,7 +48,6 @@ int main() {
     glBindVertexArray(VertexArrayID);
 
     // Create and compile our GLSL program from the shaders
-//    GLuint programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
     GLuint programID = LoadShaders("shader/shader_vertex.glsl", "shader/shader_fragment.glsl");
 
 
