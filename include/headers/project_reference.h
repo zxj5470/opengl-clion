@@ -11,6 +11,5 @@
 #include <glm/glm.hpp>
 #include <fstream>
 #include <vector>
-#include <string>
-
+#include <cstring>
 #endif //OPENGL_PROJECT_REFERENCE_H

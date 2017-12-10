@@ -9,3 +9,10 @@ add_executable(opengl
         include/headers/LoadShader.hpp)
 
 target_link_libraries(opengl libglfw.so.3 GLEW GL)
+
+add_executable(geoshader
+        include/sources/geoshader.cpp
+        include/headers/project_reference.h
+        include/headers/LoadShader.hpp)
+
+target_link_libraries(geoshader libglfw.so.3 GLEW GL)
