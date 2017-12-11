@@ -21,13 +21,16 @@ add_executable(simple_shader
         include/headers/load_shader.hpp)
 
 if (WIN32)
+    message("build in Windows")
 elseif (APPLE)
+    message("build in MacOS")
     find_package(OpenGL REQUIRED)
     set(PROJECT_MACOSX_LIBS glfw GLEW ${OPENGL_LIBRARY})
     target_link_libraries(opengl ${PROJECT_MACOSX_LIBS})
     target_link_libraries(geoshader ${PROJECT_MACOSX_LIBS})
     target_link_libraries(simple_shader ${PROJECT_MACOSX_LIBS})
-elseif (UNIX)
+elseif (UNIX) # GNU is Not Uinx
+    message("build in Linux")
     target_link_libraries(opengl libglfw.so.3 GLEW GL)
     target_link_libraries(geoshader libglfw.so.3 GLEW GL)
     target_link_libraries(simple_shader libglfw.so.3 GLEW GL)
